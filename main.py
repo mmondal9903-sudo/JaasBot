@@ -8,7 +8,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, fil
 TOKEN = "7603627166:AAG_cFC5z9Qd1RxsKn8ew57QYVQW09lTCZ4"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("👋 Hello! I am your friendly bot 🤖")
+    await update.message.reply_text("Hey! Welcome to my Anime Bot 🎉")
 
 async def about(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
