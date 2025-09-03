@@ -2,7 +2,7 @@ from keep_alive import keep_alive
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
-from telegram import Update
+from telegram import Update, BotCommand
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 
 TOKEN = "7603627166:AAG_cFC5z9Qd1RxsKn8ew57QYVQW09lTCZ4"
@@ -39,6 +39,17 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "🙏 I'm still learning. Right now I only understand simple greetings like 'hi' or 'bye'."
         )
 
+async def set_commands(application):
+    commands = [
+        ("start", "Start the bot"),
+        ("about", "Learn about this bot"),
+        ("contact", "How to contact us"),
+        ("help", "List available commands"),
+        ("buttons", "Show useful buttons")
+    ]
+    await application.bot.set_my_commands(
+        [BotCommand(cmd, desc) for cmd, desc in commands]
+    )
 
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -67,6 +78,8 @@ app.add_handler(CommandHandler("buttons", buttons))
 app.add_handler(CommandHandler("about", about))
 app.add_handler(CommandHandler("contact", contact))
 
+
+app.job_queue.run_once(lambda ctx: set_commands(app), when=0)
 
 keep_alive()
 app.run_polling()
