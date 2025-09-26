@@ -1,6 +1,6 @@
 import logging
 # Added ReplyKeyboardMarkup and KeyboardButton for persistent chat buttons
-from telegram import Update, BotCommand, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton
+from telegram import Update, BotCommand, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton, MenuButtonCommands
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 
 # Replace with your actual token
@@ -123,6 +123,9 @@ async def set_commands(application):
     ]
     await application.bot.set_my_commands(
         [BotCommand(cmd, desc) for cmd, desc in commands]
+    )
+    await application.bot.set_chat_menu_button(
+        menu_button=MenuButtonCommands()
     )
 
 
