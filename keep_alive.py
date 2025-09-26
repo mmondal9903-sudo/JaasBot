@@ -9,7 +9,7 @@ def home():
     return "Bot is Alive!"
 
 def run():
-    # Read the PORT environment variable from Render, default to 8080 if not found
+    # Reads the dynamic port number that Render provides
     port = int(os.environ.get('PORT', 8080))
     app.run(host='0.0.0.0', port=port)
 
