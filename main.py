@@ -1,7 +1,7 @@
 import logging
 # Added ReplyKeyboardMarkup and KeyboardButton for persistent chat buttons
 from telegram import Update, BotCommand, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton, MenuButtonCommands
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes, JobQueue
 
 # Replace with your actual token
 TOKEN = "7603627166:AAG_cFC5z9Qd1RxsKn8ew57QYVQW09lTCZ4" 
@@ -132,7 +132,11 @@ async def set_commands(application):
 # ----------------- 2. BOT INITIALIZATION AND RUNNING -----------------
 
 # Build the application
-app = ApplicationBuilder().token(TOKEN).job_queue().build()
+# 1. Create the JobQueue instance
+job_queue = JobQueue()
+
+# 2. Pass the instance to the ApplicationBuilder
+app = ApplicationBuilder().token(TOKEN).job_queue(job_queue).build()
 
 # Add Handlers
 app.add_handler(CommandHandler("start", start))
@@ -142,7 +146,6 @@ app.add_handler(CommandHandler("contact", contact))
 app.add_handler(CommandHandler("buttons", buttons))
 
 # Add the new MessageHandler for the Reply Keyboard buttons
-# The regex looks for the exact text on the buttons we defined in 'start'
 button_filter = filters.Regex("^(❓ Help & Info|💬 Contact & Links)$")
 app.add_handler(MessageHandler(button_filter, handle_reply_button))
 
