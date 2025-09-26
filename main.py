@@ -132,7 +132,7 @@ async def set_commands(application):
 # ----------------- 2. BOT INITIALIZATION AND RUNNING -----------------
 
 # Build the application
-app = ApplicationBuilder().token(TOKEN).with_job_queue().build()
+app = ApplicationBuilder().token(TOKEN).**job_queue**(True).build()
 
 # Add Handlers
 app.add_handler(CommandHandler("start", start))
