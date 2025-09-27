@@ -140,7 +140,7 @@ def main():
         return
 
     # Build the application with the token and enable the job_queue for scheduling
-    application = ApplicationBuilder().token(TOKEN).job_queue().build()
+    application = ApplicationBuilder().token(TOKEN).build()
 
     # Initialize the LAST_TWEET_ID to 0 if it's not set
     if 'LAST_TWEET_ID' not in application.bot_data:
